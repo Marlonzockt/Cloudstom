@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.0"
+}
+
+group 'de.mrln'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spongepowered.org/maven' }
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://repo.cloudnetservice.eu/repository/releases/' }
+}
+
+dependencies {
+    implementation 'com.github.Minestom:Minestom:e505c96'
+    compileOnly 'de.dytanic.cloudnet:cloudnet-driver:3.4.1-RELEASE'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'de.mrln.test.MyServer',
+                "Multi-Release": true
+    }
+}
