@@ -16,17 +16,22 @@ public class Cloudstom {
     private static final Path VELOCITY_SECRET_PATH = Path.of("./velocity_secret.txt");
 
     public static void main(String[] args) {
-        MinecraftServer server = MinecraftServer.init();
-
+        String velocitySecret = null;
         try {
-            String velocitySecret = Files.readString(VELOCITY_SECRET_PATH);
-
-            VelocityProxy.enable(velocitySecret);
+            velocitySecret = Files.readString(VELOCITY_SECRET_PATH);
         } catch (NoSuchFileException e) {
             MinecraftServer.LOGGER.error("File velocity_secret.txt is missing. This file must be in the same directory as the server jar file!");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (velocitySecret == null) {
+            System.exit(0);
+            return;
+        }
+        MinecraftServer server = MinecraftServer.init();
+
+        VelocityProxy.enable(velocitySecret);
+
         CloudNetDriver driver = CloudNetDriver.getInstance();
         String name = driver.getComponentName();
         ServiceInfoSnapshot service = Objects.requireNonNull(driver.getCloudServiceProvider().getCloudServiceByName(name));
