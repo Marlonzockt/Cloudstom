@@ -24,7 +24,7 @@ test {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'de.mrln.test.MyServer',
+        attributes 'Main-Class': 'de.mrln.cloudstom.Cloudstom',
                 "Multi-Release": true
     }
 }
